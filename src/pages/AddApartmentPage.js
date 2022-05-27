@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from 'axios';
+import Ironbnb  from "../services/Ironbnb"
 import { useNavigate } from "react-router-dom";
 
 function AddApartmentPage() {
@@ -12,8 +12,19 @@ function AddApartmentPage() {
     e.preventDefault();
     // Create the body for the POST request    
     const body = { title: headline, pricePerDay: price };
+
+    Ironbnb.saveApartment(body)
+    .then((newAppartment) => {
+      console.log(newAppartment)
+      // Reset the state
+      setHeadline("");
+      setPrice(1);
     
-    axios
+      // Navigate to the `/` page
+      navigate('/');
+    });
+
+    /* axios
       .post("https://ironbnb-m3.herokuapp.com/apartments", body)
       .then((response) => {
         // Reset the state
@@ -22,7 +33,7 @@ function AddApartmentPage() {
       
         // Navigate to the `/` page
         navigate('/');
-      });
+      }); */
   };
 
 
